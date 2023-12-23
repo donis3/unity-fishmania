@@ -1,0 +1,17 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Rhinotap.StateMachine;
+
+namespace Rhinotap.StateMachine
+{
+	[CreateAssetMenu(menuName = "StateMachine/Logic/New #SCRIPTNAME#", fileName = "#SCRIPTNAME#")]
+	public class #SCRIPTNAME# : StateLogic
+	{
+
+	    public override bool Decide(StateController Controller)
+		{
+			return true;
+		}
+	}
+}

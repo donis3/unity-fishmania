@@ -1,0 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Rhinotap.StateMachine;
+
+namespace Rhinotap.StateMachine
+{
+	[CreateAssetMenu(menuName = "StateMachine/Actions/#SCRIPTNAME#", fileName = "#SCRIPTNAME#")]
+	public class #SCRIPTNAME# : StateAction
+	{
+		public override void OnUpdate(StateController Controller)
+		{
+			//Do stuff here
+			throw new System.NotImplementedException();
+		}
+	}
+}
+

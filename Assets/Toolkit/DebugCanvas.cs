@@ -16,7 +16,7 @@ public class DebugCanvas : MonoBehaviour
             {
                 _instance = FindObjectOfType<DebugCanvas>();//find the instance in the scene
                 if (_instance == null)
-                    Debug.LogError("Mobile Input Manager Not available in the scene");
+                    Debug.LogError("DebugCanvas missing");
             }
             return _instance;
         }
@@ -89,11 +89,13 @@ public class DebugCanvas : MonoBehaviour
 
     public static void Set(string msg = null, int lineNumber = 1)
     {
+        if (instance == null || !instance.isRunning) return;
         instance.SetLine(msg, lineNumber);
     }
 
     public static void Title(string msg = null)
     {
+        if (instance == null || !instance.isRunning) return;
         instance.SetTitle(msg);
     }
 

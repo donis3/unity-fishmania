@@ -107,7 +107,10 @@ namespace Rhinotap.Toolkit
             {
                 thisEvent = instance.events.GetValue<Action<ActionType>>(eventName);
                 if( thisEvent != null)
+                {
                     thisEvent.Invoke(param);
+                    Debug.Log($"Event Triggered [{eventName}]");
+                }
             } else
             {
                 //event action was not created because startlistening was not called

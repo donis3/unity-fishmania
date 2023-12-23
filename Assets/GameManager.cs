@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Rhinotap.Toolkit;
 using Cinemachine;
 public class GameManager : MonoBehaviour
@@ -13,7 +14,7 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -25,10 +26,30 @@ public class GameManager : MonoBehaviour
     //==============| STATIC API |=====================//
     public static bool Paused { get { return instance.isPaused; } }
 
+    public static int PlayerLevel { 
+        get
+        {
+            if (instance.player != null)
+                return instance.player.Level;
+            else
+                return 0;
+        } 
+    }
 
     //==============| INSTANCED API |======================//
     public bool isPaused { get; private set; } = false;
 
+    public GameObject playerGameObject { get; private set; }
+
+    private PlayerController player;
+
+
+    private AudioSource audio;
+
+
+    [Range(0f, 10f)]
+    [SerializeField]
+    private float restartLevelTimer = 0f;
 
     public  void PlayPause()
     {
@@ -36,13 +57,16 @@ public class GameManager : MonoBehaviour
 
         EventManager.Trigger<bool>("gamePaused", isPaused);
 
-        return;
+        
         if( isPaused)
         {
             Time.timeScale = 0f;
+            audio.Pause();
         } else
         {
             Time.timeScale = 1f;
+            audio.Play();
+            
         }
     }
 
@@ -56,9 +80,50 @@ public class GameManager : MonoBehaviour
         if (Vcam != null)
             CameraDefaultSize = Vcam.m_Lens.OrthographicSize;
 
+        audio = GetComponent<AudioSource>();
+
+        
+
+        EventManager.StartListening<GameObject>("PlayerSpawn", (playerObj) => { 
+            if( playerObj != null)
+            {
+                playerGameObject = playerObj;
+                player = playerObj.GetComponent<PlayerController>();
+                Vcam.Follow = playerObj.transform;
+            }
+        });
+
+        EventManager.Trigger("GameStart");
+        audio.Play();
+
+        EventManager.StartListening("playerDeath", PlayerDeathSequence);
         
     }
 
+
+    Coroutine restartLevelSequence;
+    void PlayerDeathSequence()
+    {
+        if (restartLevelSequence == null)
+            restartLevelSequence = StartCoroutine( RestartLevel() );
+    }
+    
+    IEnumerator RestartLevel()
+    {
+        float resetTime = 0f;
+        while(resetTime < restartLevelTimer)
+        {
+            resetTime += Time.deltaTime;
+            yield return null;
+        }
+
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.buildIndex);
+
+        yield return new WaitForSeconds(1f);
+        
+        Start();
+    }
 
 
     //==============| Cinemachine |======================//

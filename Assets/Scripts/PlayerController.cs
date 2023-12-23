@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private int maxLevel = 5;
 
+    [SerializeField]
+    private int baseXpRequirement = 100;
     [Range(0.05f, 2f)]
     [SerializeField]
     private float levelXpIncreasePercentage = 0.3f;
@@ -38,13 +40,13 @@ public class PlayerController : MonoBehaviour
     private bool isAlive = true;
     private bool isPaused = false;
 
-    private int baseXpRequirement = 5;
-    private int currentLevelXp = 5;
+    
+    private int currentLevelXp = 100;
     private int currentXp = 0;
 
     public int Level { get; private set; } = 1;
 
-    
+    private int score = 0;
 
 
     //====================| Control Input
@@ -72,6 +74,7 @@ public class PlayerController : MonoBehaviour
         if (Input.touchSupported == true)
             debugOnPc = false;
 
+        
 
     }
 
@@ -82,6 +85,7 @@ public class PlayerController : MonoBehaviour
         //Movement
         if( isPaused == false )
         {
+            /*
             //Input Cycles
             if (debugOnPc == false)
             {
@@ -91,6 +95,8 @@ public class PlayerController : MonoBehaviour
             {
                 KeyboardControls();
             }
+            */
+            KeyboardControls();
         }
         
         //Level Management
@@ -100,7 +106,7 @@ public class PlayerController : MonoBehaviour
             LevelUp();
         }
 
-        DebugCanvas.Set("Xp: " + currentXp.ToString() + " / " + currentLevelXp.ToString(), 2);
+        //DebugCanvas.Set("Xp: " + currentXp.ToString() + " / " + currentLevelXp.ToString(), 2);
 
     }
     #endregion
@@ -140,6 +146,7 @@ public class PlayerController : MonoBehaviour
     /// <param name="rotation"></param>
     public void MoveTowards(Quaternion rotation)
     {
+        if (!isAlive) return;
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * turnSpeed);
 
         transform.Translate(Vector2.right * Time.deltaTime * moveSpeed);
@@ -155,9 +162,18 @@ public class PlayerController : MonoBehaviour
     {
         if (audioSource != null && deathSound != null)
             audioSource.PlayOneShot(deathSound);
+
+        GameManager.instance.CameraShake(0.2f, 7f, 2.5f);
+
+        EventManager.Trigger("playerDeath");
+        EventManager.Trigger<int>("GameOver", score);
+        isAlive = false;
+        playerGraphics.gameObject.SetActive(false);
+        Destroy(gameObject, 1f);
+
     }
 
-    void Eat(FishController fish)
+    void Eat(Fish fish)
     {
         if (fish == null) return;
 
@@ -170,8 +186,13 @@ public class PlayerController : MonoBehaviour
         GameManager.instance.CameraShake(0.13f, 5f, 2.5f);
 
         //Kill the referenced fish
+
         fish.Die();
-        currentXp += fish.XpValue;
+        currentXp += fish.Xp;
+
+        score += (fish.Xp * Level);
+
+        GuiManager.instance.SetXp(currentXp, currentLevelXp);
 
     }
 
@@ -194,8 +215,8 @@ public class PlayerController : MonoBehaviour
         currentLevelXp = RequiredXpForLevel(Level, baseXpRequirement);
 
         currentXp = 0;
+        GuiManager.instance.SetXp(currentXp, currentLevelXp);
 
-        
         Level++;
 
         transform.localScale = new Vector3(Level, Level, 1);
@@ -218,7 +239,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        FishController collidedFish = collision.gameObject.GetComponent<FishController>();
+        if (!isAlive) return;
+        Fish collidedFish = collision.gameObject.GetComponent<Fish>();
         if (collidedFish != null)
         {
             int fishLevel = collidedFish.Level;

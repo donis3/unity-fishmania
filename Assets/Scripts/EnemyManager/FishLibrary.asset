@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31fc3f41b868abe47a9d32598ae1f476, type: 3}
+  m_Name: FishLibrary
+  m_EditorClassIdentifier: 
+  pools:
+  - playerLevel: 1
+    fishPrefabs:
+    - {fileID: 3698765400459329968, guid: 98e9c0ff60adcfb468950b1ca177f729, type: 3}
+    - {fileID: 721555715946807086, guid: ae101ea44ba096847b95ba74146ab5ee, type: 3}
+    - {fileID: 3698765400459329968, guid: 98e9c0ff60adcfb468950b1ca177f729, type: 3}
+    - {fileID: 2992622504249415393, guid: 185a389c14a7b97488f6547f945b3461, type: 3}
+    - {fileID: 6291866412747655914, guid: 50c07f8a32eee084aa84b8fb60541aac, type: 3}
+    - {fileID: 721555715946807086, guid: 40bc8dbd63726af41b991763cb9caaea, type: 3}
+  - playerLevel: 2
+    fishPrefabs:
+    - {fileID: 3698765400459329968, guid: 98e9c0ff60adcfb468950b1ca177f729, type: 3}
+    - {fileID: 3698765400459329968, guid: 98e9c0ff60adcfb468950b1ca177f729, type: 3}
+    - {fileID: 2992622504249415393, guid: 185a389c14a7b97488f6547f945b3461, type: 3}
+    - {fileID: 6291866412747655914, guid: 50c07f8a32eee084aa84b8fb60541aac, type: 3}
+    - {fileID: 721555715946807086, guid: ae101ea44ba096847b95ba74146ab5ee, type: 3}
+    - {fileID: 721555715946807086, guid: ae101ea44ba096847b95ba74146ab5ee, type: 3}
+    - {fileID: 721555715946807086, guid: 40bc8dbd63726af41b991763cb9caaea, type: 3}
+    - {fileID: 721555715946807086, guid: 40bc8dbd63726af41b991763cb9caaea, type: 3}
+    - {fileID: 721555715946807086, guid: ae101ea44ba096847b95ba74146ab5ee, type: 3}
+    - {fileID: 721555715946807086, guid: 729921b696cebe74b9feecda4e6b8a06, type: 3}
+    - {fileID: 721555715946807086, guid: 709d7df08549ed5479bf106816a9954d, type: 3}
+    - {fileID: 721555715946807086, guid: 709d7df08549ed5479bf106816a9954d, type: 3}
+  - playerLevel: 3
+    fishPrefabs:
+    - {fileID: 3698765400459329968, guid: 98e9c0ff60adcfb468950b1ca177f729, type: 3}
+    - {fileID: 6291866412747655914, guid: 50c07f8a32eee084aa84b8fb60541aac, type: 3}
+    - {fileID: 2992622504249415393, guid: 185a389c14a7b97488f6547f945b3461, type: 3}
+    - {fileID: 721555715946807086, guid: ae101ea44ba096847b95ba74146ab5ee, type: 3}
+    - {fileID: 721555715946807086, guid: ae101ea44ba096847b95ba74146ab5ee, type: 3}
+    - {fileID: 721555715946807086, guid: ae101ea44ba096847b95ba74146ab5ee, type: 3}
+    - {fileID: 721555715946807086, guid: 40bc8dbd63726af41b991763cb9caaea, type: 3}
+    - {fileID: 721555715946807086, guid: 40bc8dbd63726af41b991763cb9caaea, type: 3}
+    - {fileID: 721555715946807086, guid: 40bc8dbd63726af41b991763cb9caaea, type: 3}
+    - {fileID: 721555715946807086, guid: 729921b696cebe74b9feecda4e6b8a06, type: 3}
+    - {fileID: 721555715946807086, guid: 729921b696cebe74b9feecda4e6b8a06, type: 3}
+    - {fileID: 721555715946807086, guid: 709d7df08549ed5479bf106816a9954d, type: 3}
+    - {fileID: 721555715946807086, guid: 709d7df08549ed5479bf106816a9954d, type: 3}
+    - {fileID: 721555715946807086, guid: 709d7df08549ed5479bf106816a9954d, type: 3}
+    - {fileID: 721555715946807086, guid: 709d7df08549ed5479bf106816a9954d, type: 3}
